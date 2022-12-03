@@ -45,10 +45,12 @@ class PostService
             ->orderBy(['created_at' => SORT_DESC])
             ->one();
 
-        $dateDiff = $lastPost->getDateDiff($lastPost->created_at);
+        if (!empty($lastPost)) {
+            $dateDiff = $lastPost->getDateDiff($lastPost->created_at);
 
-        if (0 === $dateDiff->h && 0 >= $dateDiff->i) {
-            return false;
+            if (0 === $dateDiff->h && 0 >= $dateDiff->i) {
+                return false;
+            }
         }
 
         return true;
